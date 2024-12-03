@@ -29,7 +29,7 @@ ignoreLetters = ['?', '!', '¿', '¡', '.', ',', ';', ':']
 # Cargar las stopwords en español
 spanish_stopwords = stopwords.words('spanish')
 
-# Procesar cada intención en el archivo intents.json
+# Procesar cada intención en el archivo intents2.json
 for intent in intents['intents']:
     for pattern in intent['patterns']:
         wordList = nltk.word_tokenize(pattern)  # Tokenizar las palabras en cada patrón

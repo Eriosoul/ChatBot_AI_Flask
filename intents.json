@@ -1,106 +1,115 @@
 {
-  "intents": [
-    {
-      "tag": "greeting",
-      "patterns": [
-        "Hola",
-        "Hi",
-        "Buenos días",
-        "Buenas tardes",
-        "¿Hay alguien ahí?",
-        "¿Cómo estás?"
-      ],
-      "responses": [
-        "¡Hola! ¿En qué puedo ayudarte?",
-        "¡Bienvenido a la librería! ¿Qué necesitas?",
-        "Hola, ¿cómo puedo asistirte hoy?"
-      ]
-    },
-    {
-      "tag": "goodbye",
-      "patterns": [
-        "Adiós",
-        "Hasta luego",
-        "Nos vemos",
-        "Gracias, eso es todo"
-      ],
-      "responses": [
-        "¡Adiós! Vuelve pronto.",
-        "Hasta luego, ¡que tengas un buen día!",
-        "Gracias por visitarnos. ¡Nos vemos!"
-      ]
-    },
-    {
-      "tag": "books_list",
-      "patterns": [
-        "¿Qué libros tienen?",
-        "Lista de libros",
-        "¿Qué títulos están disponibles?",
-        "¿Qué puedo comprar?",
-        "¿Qué libros hay en la tienda?"
-      ],
-      "responses": [
-        "Actualmente tenemos los siguientes libros: 'El Hobbit', 'El Señor de los Anillos' y 'Lo Invisible'. ¿Te interesa alguno en particular?"
-      ]
-    },
-    {
-      "tag": "book_price",
-      "patterns": [
-        "¿Cuánto cuesta El Hobbit?",
-        "Precio de El Señor de los Anillos",
-        "¿Cuánto vale Lo Invisible?",
-        "Precio de los libros",
-        "¿Qué precio tienen?"
-      ],
-      "responses": [
-        "El precio de 'El Hobbit' es $20.",
-        "El precio de 'El Señor de los Anillos' es $35.",
-        "El precio de 'Lo Invisible' es $15.",
-        "Dime el título del libro y te diré su precio."
-      ]
-    },
-    {
-      "tag": "book_availability",
-      "patterns": [
-        "¿Tienen disponible El Hobbit?",
-        "¿Está El Señor de los Anillos en stock?",
-        "¿Puedo comprar Lo Invisible?",
-        "Disponibilidad de los libros",
-        "¿Está disponible?"
-      ],
-      "responses": [
-        "Sí, 'El Hobbit' está disponible.",
-        "'El Señor de los Anillos' está en stock.",
-        "'Lo Invisible' también está disponible.",
-        "Todos los libros mencionados están disponibles actualmente."
-      ]
-    },
-    {
-      "tag": "store_info",
-      "patterns": [
-        "¿Dónde están ubicados?",
-        "¿Cuál es su dirección?",
-        "Horario de atención",
-        "Información de la librería"
-      ],
-      "responses": [
-        "Estamos ubicados en la Calle Ficticia 123. Nuestro horario es de 9:00 AM a 7:00 PM de lunes a sábado.",
-        "Puedes visitarnos en la Calle Ficticia 123. Estamos abiertos de 9:00 AM a 7:00 PM."
-      ]
-    },
-    {
-      "tag": "thanks",
-      "patterns": [
-        "Gracias",
-        "Muchas gracias",
-        "¡Perfecto!",
-        "Eso es todo"
-      ],
-      "responses": [
-        "¡De nada! Estamos aquí para ayudarte.",
-        "Gracias a ti. Si necesitas algo más, no dudes en preguntar.",
-        "¡Es un placer ayudarte!"
-      ]
-    }
-  ]
+   "intents": [
+      {
+         "tag": "saludo",
+         "patterns": [
+            "Hola",
+            "Buenos días",
+            "¿Hay alguien ahí?",
+            "Saludos",
+            "¿Cómo estás?"
+         ],
+         "responses": [
+            "¡Hola! ¿En qué puedo ayudarte hoy?",
+            "¡Buenos días! ¿Necesitas ayuda con algo?",
+            "¡Saludos! Estoy aquí para asistirte."
+         ],
+         "context_set": ""
+      },
+      {
+         "tag": "despedida",
+         "patterns": [
+            "Adiós",
+            "Hasta luego",
+            "Nos vemos",
+            "Que tengas un buen día",
+            "Me voy"
+         ],
+         "responses": [
+            "¡Adiós! Vuelve pronto si necesitas más ayuda.",
+            "Hasta luego. Espero haberte ayudado.",
+            "¡Nos vemos! No dudes en contactarme de nuevo."
+         ],
+         "context_set": ""
+      },
+      {
+         "tag": "horarios",
+         "patterns": [
+            "¿Cuáles son los horarios de la biblioteca?",
+            "¿Está abierta la biblioteca los fines de semana?",
+            "Horario de la biblioteca",
+            "¿Cuándo puedo visitar la biblioteca?"
+         ],
+         "responses": [
+            "La biblioteca está abierta de lunes a viernes de 8:00 a 20:00 y los sábados de 9:00 a 14:00."
+         ],
+         "context_set": ""
+      },
+      {
+         "tag": "ubicación",
+         "patterns": [
+            "¿Dónde está la biblioteca?",
+            "¿Cuál es la dirección de la biblioteca?",
+            "¿Cómo llego a la biblioteca?",
+            "Ubicación de la biblioteca"
+         ],
+         "responses": [
+            "La biblioteca está ubicada en la Av. Principal 123. Aquí tienes un enlace a Google Maps: <a target=\"_blank\" href=\"ENLACE_GOOGLE_MAPS\">Ver ubicación</a>."
+         ],
+         "context_set": ""
+      },
+      {
+         "tag": "préstamos",
+         "patterns": [
+            "¿Cómo funciona el préstamo de libros?",
+            "¿Puedo llevarme libros a casa?",
+            "Préstamos de libros",
+            "¿Cuánto tiempo puedo tener un libro prestado?"
+         ],
+         "responses": [
+            "El préstamo de libros tiene una duración de 15 días, con posibilidad de renovación por otros 15 días. Para más detalles, consulta aquí: <a target=\"_blank\" href=\"ENLACE_REGLAS_PRÉSTAMO\">Reglas de préstamo</a>."
+         ],
+         "context_set": ""
+      },
+      {
+         "tag": "renovación",
+         "patterns": [
+            "¿Cómo renuevo un libro?",
+            "Renovación de préstamos",
+            "¿Puedo extender el tiempo del préstamo?",
+            "Renovar libro"
+         ],
+         "responses": [
+            "Puedes renovar un libro desde tu cuenta en línea o visitando la biblioteca. Aquí tienes el enlace al sistema de renovación: <a target=\"_blank\" href=\"ENLACE_SISTEMA_RENOVACIÓN\">Renovar ahora</a>."
+         ],
+         "context_set": ""
+      },
+      {
+         "tag": "servicios",
+         "patterns": [
+            "¿Qué servicios ofrece la biblioteca?",
+            "Servicios de la biblioteca",
+            "¿Puedo usar computadoras en la biblioteca?",
+            "Servicios disponibles"
+         ],
+         "responses": [
+            "La biblioteca ofrece acceso a computadoras, conexión Wi-Fi gratuita, salas de estudio, y asesoramiento en la búsqueda de información. Para más detalles, visita: <a target=\"_blank\" href=\"ENLACE_SERVICIOS\">Servicios</a>."
+         ],
+         "context_set": ""
+      },
+      {
+         "tag": "agradecimiento",
+         "patterns": [
+            "Gracias",
+            "Muchas gracias",
+            "Perfecto, gracias",
+            "Ok, gracias"
+         ],
+         "responses": [
+            "¡De nada! Siempre estoy aquí para ayudarte.",
+            "¡Es un placer ayudarte! ¿Algo más?"
+         ],
+         "context_set": ""
+      }
+   ]
 }
