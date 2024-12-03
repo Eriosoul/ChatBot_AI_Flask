@@ -2,9 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <title>{% block title %}Tu hotel de confianza{% endblock %}</title>
 </head>
 <body>
-
+    <header>
+        <input type="checkbox" id="botonMenu">
+        <label for="botonMenu">
+            <img src="{{ url_for('static', filename='images/ico.png') }}" alt="">
+        </label>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home.home') }}">Inicio</a></li>
+                <li><a href="#">Servicios</a></li>
+                <li><a href="#">Producto</a></li>
+                <li><a href="#">Clientes</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 </body>
 </html>
