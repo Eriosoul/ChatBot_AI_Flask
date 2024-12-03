@@ -10,31 +10,32 @@
 <body>
     <div class="container mt-5">
         <h2 class="text-center mb-4">Registro de Usuario</h2>
-        <form>
+
+        <form method="POST" action="/register">
             <!-- Nombre -->
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre" required>
+                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
             </div>
             <!-- Apellido -->
             <div class="mb-3">
                 <label for="apellido" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="apellido" placeholder="Ingresa tu apellido" required>
+                <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Ingresa tu apellido" required>
             </div>
             <!-- Email -->
             <div class="mb-3">
                 <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" placeholder="ejemplo@correo.com" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="ejemplo@correo.com" required>
             </div>
-            <!-- Contraseña -->
+            <!-- Contraseña-->
             <div class="mb-3">
                 <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password" placeholder="Crea una contraseña" required>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Crea una contraseña" required>
             </div>
             <!-- Teléfono -->
             <div class="mb-3">
                 <label for="telefono" class="form-label">Teléfono</label>
-                <input type="tel" class="form-control" id="telefono" placeholder="Ingresa tu número de teléfono" required>
+                <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Ingresa tu número de teléfono" required>
             </div>
             <!-- Botón de Enviar -->
             <div class="d-grid gap-2">
