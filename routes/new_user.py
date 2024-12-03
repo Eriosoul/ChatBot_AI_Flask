@@ -1,5 +1,5 @@
 from mysql.connector import Error
-from connection_db import DataBaseConnection  # Importamos la clase de conexión
+from db.connection_db import DataBaseConnection  # Importamos la clase de conexión
 
 class NewUser:
     def __init__(self, conn):
