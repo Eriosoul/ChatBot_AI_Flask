@@ -2,28 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav_home.css') }}">
     <title>{% block title %}Tu hotel de confianza{% endblock %}</title>
 </head>
 <body>
-    <header>
-        <input type="checkbox" id="botonMenu">
-        <label for="botonMenu">
-            <img src="{{ url_for('static', filename='images/ico.png') }}" alt="">
-        </label>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('home.home') }}">Inicio</a></li>
-                <li><a href="#">Servicios</a></li>
-                <li><a href="#">Producto</a></li>
-                <li><a href="#">Clientes</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+    <nav class="navbar">
+    <div class="container">
+        <a href="#" class="navbar-brand">
+            <img src="logo.png" alt="Logo" class="logo">
+            <span class="brand-name">Tu Hotel Favorito</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="user-menu">
+            <div class="user-avatar" id="user-avatar">
+                <img src="static/images/logo.png" alt="User">
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu">
+                <div class="user-info">
+                    <span class="user-name">pepe reyes</span>
+                    <span class="user-email">ejemplo@gmail.com</span>
+                </div>
+                <ul>
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="#" id="toggle-theme">Toggle Theme</a></li>
+                    <li><a href="#">Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </nav>
+    <script src="{{ url_for('static', filename='js/open_close_menu.js') }}"></script>
 </body>
 </html>

@@ -22,9 +22,9 @@ def login():
 
                 if user:
                     stored_hashed_password = user['password']
-                    metodo_cript = hashlib.sha256()
-                    metodo_cript.update(password.encode())
-                    hashed_input_password = metodo_cript.hexdigest()
+                    metod_cript = hashlib.sha256()
+                    metod_cript.update(password.encode())
+                    hashed_input_password = metod_cript.hexdigest()
 
                     if hashed_input_password == stored_hashed_password:
                         # Generar token y fecha de expiración
