@@ -1,6 +1,10 @@
+from flask import Blueprint, session, redirect, url_for, flash
 from functools import wraps
-from flask import session, redirect, url_for, flash
 
+# Define el Blueprint para las rutas de autenticación
+auth_bp = Blueprint('auth', __name__)
+
+# Decorador para verificar si el usuario ha iniciado sesión
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -9,3 +13,11 @@ def login_required(f):
             return redirect(url_for('login.login'))
         return f(*args, **kwargs)
     return decorated_function
+
+# Ruta para cerrar sesión
+@auth_bp.route('/logout')
+def logout():
+    # Limpiar la sesión
+    session.clear()
+    flash("Has cerrado sesión exitosamente.", "success")
+    return redirect(url_for('login.login'))  # Redirigir al login

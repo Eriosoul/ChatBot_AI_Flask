@@ -4,7 +4,9 @@ from flask import Flask
 from routes.login import login_bp
 from routes.register import register_bp
 from routes.home import home_bp
+from routes.auth import auth_bp
 from error_handlers import error_bp
+
 
 
 
@@ -16,6 +18,7 @@ app.register_blueprint(login_bp)
 app.register_blueprint(register_bp)
 app.register_blueprint(home_bp)
 app.register_blueprint(error_bp)
+app.register_blueprint(auth_bp)
 
 import logging
 
@@ -29,4 +32,4 @@ if __name__ == '__main__':
     host = '127.0.0.1'
     port = 5000
     print(f"Running on http://{host}:{port}/login")  # Imprime la ruta completa al login
-    app.run(host=host, port=port)
+    app.run(host=host, port=port, debug=True)
