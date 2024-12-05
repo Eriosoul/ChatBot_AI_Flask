@@ -6,6 +6,8 @@ from routes.register import register_bp
 from routes.home import home_bp
 from error_handlers import error_bp
 
+
+
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 

@@ -9,7 +9,7 @@
     <nav class="navbar">
     <div class="container">
         <a href="#" class="navbar-brand">
-            <img src="logo.png" alt="Logo" class="logo">
+            <img src="static/images/phx.jpg" alt="Logo" class="logo">
             <span class="brand-name">Tu Hotel Favorito</span>
         </a>
         <ul class="nav-links">
@@ -21,18 +21,25 @@
         </ul>
         <div class="user-menu">
             <div class="user-avatar" id="user-avatar">
-                <img src="static/images/logo.png" alt="User">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="User">
             </div>
             <div class="dropdown-menu" id="dropdown-menu">
+                {% if user %}
                 <div class="user-info">
-                    <span class="user-name">pepe reyes</span>
-                    <span class="user-email">ejemplo@gmail.com</span>
+                    <span class="user-name">{{ user['name'] }}</span>
+                    <span class="user-email">{{ user['mail'] }}</span>
                 </div>
+                {% else %}
+                    <div class="user-info">
+                        <span class="user-name">Usuario no identificado</span>
+                        <span class="user-email">Correo no disponible</span>
+                    </div>
+                {% endif %}
                 <ul>
                     <li><a href="#">Dashboard</a></li>
                     <li><a href="#">Settings</a></li>
                     <li><a href="#" id="toggle-theme">Toggle Theme</a></li>
-                    <li><a href="#">Sign out</a></li>
+                    <li><a href="{{ url_for('logout') }}">Sign out</a></li>
                 </ul>
             </div>
         </div>
