@@ -34,7 +34,7 @@ def register():
                     flash("Usuario registrado correctamente", "success")
                 db.close_connection()
                 # Si el registro es exitoso, redirige al formulario de login
-                return redirect(url_for('login'))
+                return redirect(url_for('login.login'))
         except Exception as ex:
             flash(f"Error al registrar usuario: {ex}", "danger")
 
