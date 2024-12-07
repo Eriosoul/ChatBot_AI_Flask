@@ -4,15 +4,16 @@ from db.connection_db import DataBaseConnection
 profile_bp = Blueprint('profile', __name__)
 
 
-@profile_bp.route('/home')
-def home():
+@profile_bp.route('/profile')
+def profile():
     user_data = None  # Inicializamos como None para evitar problemas en la plantilla
     try:
         # Validar que user_id está en la sesión
         user_id = session.get('user_id')
+        print("Estamos desde el perfil", user_id)
         if not user_id:
             flash("No se encontró el ID del usuario en la sesión.", "danger")
-            return redirect(url_for('login.login'))
+            return redirect(url_for('home.home'))
 
         db = DataBaseConnection()
         if db.conn:
@@ -25,9 +26,9 @@ def home():
                     return redirect(url_for('login.login'))
     except Exception as ex:
         flash(f"Error al cargar los datos del usuario: {ex}", "danger")
-        return redirect(url_for('login.login'))  # Redirigimos en caso de error
+        return redirect(url_for('home.home'))  # Redirigimos en caso de error
     finally:
         if db and db.conn:
             db.close_connection()
 
-    return render_template('home.html', user=user_data)
+    return render_template('profile.html', user=user_data)

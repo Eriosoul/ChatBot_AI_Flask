@@ -1,50 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav_home.css') }}">
-    <title>{% block title %}Tu hotel de confianza{% endblock %}</title>
-</head>
-<body>
-    <nav class="navbar">
-    <div class="container">
-        <a href="#" class="navbar-brand">
-            <img src="static/images/phx.jpg" alt="Logo" class="logo">
-            <span class="brand-name">Tu Hotel Favorito</span>
-        </a>
-        <ul class="nav-links">
-            <li><a href="#" class="active">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Pricing</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-        <div class="user-menu">
-            <div class="user-avatar" id="user-avatar">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="User">
-            </div>
-            <div class="dropdown-menu" id="dropdown-menu">
-                {% if user %}
-                <div class="user-info">
-                    <span class="user-name">{{ user['name'] }}</span>
-                    <span class="user-email">{{ user['mail'] }}</span>
-                </div>
-                {% else %}
-                    <div class="user-info">
-                        <span class="user-name">Usuario no identificado</span>
-                        <span class="user-email">Correo no disponible</span>
-                    </div>
-                {% endif %}
-                <ul>
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="#" id="toggle-theme">Toggle Theme</a></li>
-                    <li><a href="{{ url_for('login.login') }}">Sign out</a></li>
-                </ul>
-            </div>
-        </div>
+{%extends "base.html" %}
+
+{% block content %}
+  <div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
     </div>
-    </nav>
-    <script src="{{ url_for('static', filename='js/open_close_menu.js') }}"></script>
-</body>
-</html>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">An item</li>
+      <li class="list-group-item">A second item</li>
+      <li class="list-group-item">A third item</li>
+    </ul>
+    <div class="card-body">
+      <a href="#" class="card-link">Card link</a>
+      <a href="#" class="card-link">Another link</a>
+    </div>
+  </div>
+{% endblock %}

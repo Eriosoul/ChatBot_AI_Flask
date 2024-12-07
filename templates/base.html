@@ -1,71 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <head>
     <meta charset="UTF-8">
-    <title>Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav_home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    <title>{% block title %} Tu hotel de confianza {% endblock %}</title>
 </head>
 <body>
-    <h1>{{ title }}</h1>
-      <hr>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="http://127.0.0.1:5000/">Inicio</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="http://127.0.0.1:5000/get_books#">Lista de libros <span class="sr-only">(actuales)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="http://127.0.0.1:4000/form_add_books#">Añadir nuevo libro</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-        <!-- Block level -->
-        <div class="row">
-          <div class="col-2 text-truncate">
-            This text is quite long, and will be truncated once displayed.
-          </div>
-        </div>
-
-        <!-- Inline level -->
-        <span class="d-inline-block text-truncate" style="max-width: 150px;">
-          This text is quite long, and will be truncated once displayed.
-        </span>
-        <div class="chatbox">
-            <div class="chatbox__support">
-                <div class="chatbox__header">
-                    <div class="chatbox__image--header">
-                        <img src="" alt="image">
-                    </div>
-                    <div class="chatbox__content--header">
-                        <h4 class="chatbox__heading--header">Chat support</h4>
-                        <p class="chatbox__description--header">Hi. My name is Andrei. How can I help you?</p>
-                    </div>
-                </div>
-                <div class="chatbox__messages">
-                    <div></div>
-                </div>
-                <div class="chatbox__footer">
-                    <input type="text" placeholder="Write a message...">
-                    <button class="chatbox__send--footer send__button">Send</button>
-                </div>
+    <nav class="navbar">
+    <div class="container">
+        <a href="#" class="navbar-brand">
+            <img src="static/images/phx.jpg" alt="Logo" class="logo">
+            <span class="brand-name">Tu Hotel Favorito</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="user-menu">
+            <div class="user-avatar" id="user-avatar">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="User">
             </div>
-            <div class="chatbox__button">
-                <button><img src="{{ url_for('static', filename='images/chat_images.png') }}" /></button>
+            <div class="dropdown-menu" id="dropdown-menu">
+                {% if user %}
+                <div class="user-info">
+                    <span class="user-name">{{ user['name'] }}</span>
+                    <span class="user-email">{{ user['mail'] }}</span>
+                </div>
+                {% else %}
+                    <div class="user-info">
+                        <span class="user-name">Usuario no identificado</span>
+                        <span class="user-email">Correo no disponible</span>
+                    </div>
+                {% endif %}
+                <ul>
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="{{ url_for('profile.profile') }}">Profile</a></li>
+                    <li><a href="#" id="toggle-theme">Toggle Theme</a></li>
+                    <li><a href="{{ url_for('login.login') }}">Sign out</a></li>
+                </ul>
             </div>
         </div>
     </div>
-
-    <script>
-        $SCRIPT_ROOT = {{ request.script_root|tojson }};
-    </script>
-    <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
-
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <div class="chatbox">
+        <div class="chatbox__support">
+            <div class="chatbox__header">
+                <div class="chatbox__image--header">
+                    <img src="" alt="image">
+                </div>
+                <div class="chatbox__content--header">
+                    <h4 class="chatbox__heading--header">Your support hotel</h4>
+                    <p class="chatbox__description--header">Hi. My name is Andrei. How can I help you?</p>
+                </div>
+            </div>
+            <div class="chatbox__messages">
+                <div></div>
+            </div>
+            <div class="chatbox__footer">
+                <input type="text" placeholder="Write a message...">
+                <button class="chatbox__send--footer send__button">Send</button>
+            </div>
+        </div>
+        <div class="chatbox__button">
+            <button><img src="{{ url_for('static', filename='') }}" /></button>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/open_close_menu.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 </body>
 </html>

@@ -1,10 +1,11 @@
-# from chatbot import get_response, predict_class, intents_json
 import secrets
 from flask import Flask
+
 from routes.login import login_bp
 from routes.register import register_bp
 from routes.home import home_bp
 from routes.auth import auth_bp
+from routes.profile import profile_bp
 from error_handlers import error_bp
 
 
@@ -19,6 +20,7 @@ app.register_blueprint(register_bp)
 app.register_blueprint(home_bp)
 app.register_blueprint(error_bp)
 app.register_blueprint(auth_bp)
+app.register_blueprint(profile_bp)
 
 import logging
 
