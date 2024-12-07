@@ -1,7 +1,6 @@
 from flask import Blueprint, session, redirect, url_for, flash
 from functools import wraps
 
-# Define el Blueprint para las rutas de autenticación
 auth_bp = Blueprint('auth', __name__)
 
 # Decorador para verificar si el usuario ha iniciado sesión

@@ -4,7 +4,6 @@ from .auth import login_required
 
 home_bp = Blueprint('home', __name__)
 
-
 @home_bp.route('/home')
 @login_required
 def home():
