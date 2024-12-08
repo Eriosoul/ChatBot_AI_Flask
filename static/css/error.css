@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Asegura que ocupe toda la altura de la pantalla */
+    font-family: Arial, sans-serif; /* Fuente estándar para mejorar la legibilidad */
+}
+
+#container {
+    text-align: center;
+}
+
+h1 {
+    color: #FF0000;
+}
+
+a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
