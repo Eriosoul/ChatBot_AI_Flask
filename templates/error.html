@@ -7,11 +7,14 @@
     <title>Error</title>
 </head>
 <body>
-    <container>
-        <div id>
-            <h1>Error</h1> <p>{{ error }}</p>
+    <div id="container">
+        <h1>Error</h1>
+        <p>{{ error }}</p>
+        <div class="box-container">
+            <div class="box"><div></div></div>
+            <div class="box"><div></div></div>
         </div>
         <a href="{{ url_for('login.login') }}">Volver al Login</a>
-    </container>
+    </div>
 </body>
 </html>

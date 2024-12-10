@@ -1,6 +1,8 @@
 from flask import Blueprint, session, redirect, url_for, flash
 from functools import wraps
 
+from db.queries import QuitSessionWhenLogOut
+
 auth_bp = Blueprint('auth', __name__)
 
 # Decorador para verificar si el usuario ha iniciado sesión
@@ -13,10 +15,14 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-# Ruta para cerrar sesión
+
 @auth_bp.route('/logout')
 def logout():
-    # Limpiar la sesión
+    # Eliminar sesiones del usuario actual
+    QuitSessionWhenLogOut.delete_user_sessions()
+    # Limpiar la sesión de Flask
     session.clear()
     flash("Has cerrado sesión exitosamente.", "success")
-    return redirect(url_for('login.login'))  # Redirigir al login
+    return redirect(url_for('login.login'))
+
+
