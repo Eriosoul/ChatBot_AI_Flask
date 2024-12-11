@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <p> Tu Perfil </p>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block head_includes %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+{% endblock %}
+
+
+{% block content %}
+    <div class="cotainer-profile">
+        <div class="box-profile">
+            <h1>Bienvenido a tu perfil</h1>
+            <div class="box-profile-head">
+                <div class="info-profile">Algo de info</div>
+                <div class="foto-profile">foto</div>
+            </div>
+            <div> Todo lo demás</div>
+        </div>
+    </div>
+{% endblock %}

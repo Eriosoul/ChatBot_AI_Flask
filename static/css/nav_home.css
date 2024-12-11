@@ -192,3 +192,19 @@ body {
     display: flex;
   }
 }
+
+
+.container-profile {
+    margin: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: auto;
+    height: 100vh;
+    background-color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+.container-profile h1 {
+    color: #333;
+    font-size: 2rem;
+}
