@@ -2,19 +2,91 @@
 
 {% block head_includes %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
-    <title>{% block title %}{% endblock %} - My Webpage</title>
 {% endblock %}
 
-
 {% block content %}
-    <div class="cotainer-profile">
-        <div class="box-profile">
-            <h1>Bienvenido a tu perfil</h1>
-            <div class="box-profile-head">
-                <div class="info-profile">Algo de info</div>
-                <div class="foto-profile">foto</div>
+<div class="profile-container">
+    <article>
+        <h1>Bienvenido a tu perfil</h1>
+        <div class="box-profile-head">
+            <div class="info-profile">Información de Usuario</div>
+            <div class="foto-profile">
+                <img src="/static/images/phx.jpg" alt="Foto de perfil">
+                <div class="hover-overlay">
+                    <p>Editar</p>
+                </div>
             </div>
-            <div> Todo lo demás</div>
         </div>
-    </div>
+        <form method="POST" action="{{ url_for('profile.profile') }}">
+            <!-- Nombre -->
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="nombre"
+                    name="nombre"
+                    value="{{ user['name'] }}"
+                    required>
+            </div>
+
+            <!-- Apellido -->
+            <div class="mb-3">
+                <label for="apellido" class="form-label">Apellido</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="apellido"
+                    name="apellido"
+                    value="{{ user['surnames'] }}"
+                    required>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    value="{{ user['mail'] }}"
+                    required>
+            </div>
+
+            <!-- Teléfono -->
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input
+                    type="tel"
+                    class="form-control"
+                    id="telefono"
+                    name="telefono"
+                    value="{{ user['phone'] }}"
+                    required>
+            </div>
+
+            <!-- Contraseña -->
+<!--            <div class="mb-3">-->
+<!--                <label for="password" class="form-label">Contraseña</label>-->
+<!--                <input-->
+<!--                    type="password"-->
+<!--                    class="form-control"-->
+<!--                    id="password"-->
+<!--                    name="password"-->
+<!--                    value="{{ user['password'] }}"-->
+<!--                    required>-->
+<!--            </div>-->
+
+            <!-- Botón de Enviar -->
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                <div class="alert alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
+            </div>
+        </form>
+    </article>
+</div>
+
 {% endblock %}

@@ -23,3 +23,41 @@ class QuitSessionWhenLogOut:
         finally:
             if database.conn:
                 database.close_connection()
+
+class GetDataToProfile:
+    @staticmethod
+    def get_info_profile():
+        user_id = session.get('user_id')
+        if not user_id:
+            print("No encontró user_id de la sesión")
+            return None
+        try:
+            database = DataBaseConnection()
+            if database.conn:
+                query = """SELECT name, surnames, mail, phone,password FROM clientes WHERE id = %s"""
+                print(query)
+                with database.conn.cursor() as cursor:
+                    cursor.execute(query, (user_id,))
+                    database.conn.commit()
+                print(f"Sesiones del usuario con ID {user_id}.")
+        except Exception as ex:
+            print(f"Error al identificar el usuario sesiones: {ex}")
+        finally:
+            if database.conn:
+                database.close_connection()
+
+
+class GetAllhotels:
+    @staticmethod
+    def get_all_hotel():
+        try:
+            database = DataBaseConnection()
+            if database.conn:
+                query = """SELECT * FROM propiedades"""
+                with database.conn.cursor() as cursor:
+                    cursor.execute(query)
+                    cursor.fetch()
+                print(query)
+        except Exception as ex:
+            print(ex)
+

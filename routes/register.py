@@ -1,4 +1,5 @@
 import hashlib
+from mysql.connector import Error
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from db.connection_db import DataBaseConnection
 
@@ -7,11 +8,10 @@ register_bp = Blueprint('register', __name__)
 @register_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        # Capturamos los datos del formulario
         name = request.form.get('nombre')
         proname = request.form.get('apellido')
         mail = request.form.get('email')
-        password = request.form.get('password')  # En una app real, encripta la contraseña
+        password = request.form.get('password')
         phone = request.form.get('telefono')
 
         metodo_cript = hashlib.sha256()
@@ -19,24 +19,26 @@ def register():
         hashed_password = metodo_cript.hexdigest()
 
         try:
-            # Conexión a la base de datos
             db = DataBaseConnection()
-            if db.conn:
-                with db.conn.cursor() as cursor:
-                    # Consulta SQL para insertar datos
-                    query = """
-                        INSERT INTO clientes (name, surnames, mail, phone, password)
-                        VALUES (%s, %s, %s, %s, %s)
-                    """
-                    params = (name, proname, mail, phone, hashed_password)
-                    cursor.execute(query, params)
-                    db.conn.commit()  # Guardamos los cambios
-                    flash("Usuario registrado correctamente", "success")
-                db.close_connection()
-                # Si el registro es exitoso, redirige al formulario de login
-                return redirect(url_for('login.login'))
+            if not db.conn:
+                raise Error("Conexión fallida a la base de datos.")
+            with db.conn.cursor() as cursor:
+                query = """
+                    INSERT INTO clientes (name, surnames, mail, phone, password)
+                    VALUES (%s, %s, %s, %s, %s)
+                """
+                params = (name, proname, mail, phone, hashed_password)
+                cursor.execute(query, params)
+                db.conn.commit()
+                flash("Usuario registrado correctamente", "success")
+            db.close_connection()
+            return redirect(url_for('login.login'))
+        except Error as e:
+            flash(f"Error con la base de datos: {e.msg}", "danger")
+            return redirect(url_for('errors.generic_error'))
         except Exception as ex:
-            flash(f"Error al registrar usuario: {ex}", "danger")
+            flash(f"Error inesperado: {ex}", "danger")
+            return redirect(url_for('errors.generic_error'))
 
     return render_template('register.html')
 

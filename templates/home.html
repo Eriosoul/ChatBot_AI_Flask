@@ -1,20 +1,37 @@
 {%extends "base.html" %}
 
+{% block head_includes %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
 {% block content %}
-  <div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+<div class="home-container">
+    <h1>Explora nuestras opciones</h1>
+    <div class="card-grid">
+        <div class="card">
+            <img src="/static/images/prueba_hotel.jpg" alt="Card Image 1">
+            <div class="card-content">
+                <h2>Título de la Card 1</h2>
+                <p>Descripción breve de la opción o servicio.</p>
+                <button class="card-btn">Ver más</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/static/images/prueba_hotel.jpg" alt="Card Image 2">
+            <div class="card-content">
+                <h2>Título de la Card 2</h2>
+                <p>Descripción breve de la opción o servicio.</p>
+                <button class="card-btn">Ver más</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/static/images/prueba_hotel.jpg" alt="Card Image 3">
+            <div class="card-content">
+                <h2>Título de la Card 3</h2>
+                <p>Descripción breve de la opción o servicio.</p>
+                <button class="card-btn">Ver más</button>
+            </div>
+        </div>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">An item</li>
-      <li class="list-group-item">A second item</li>
-      <li class="list-group-item">A third item</li>
-    </ul>
-    <div class="card-body">
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
-    </div>
-  </div>
+</div>
 {% endblock %}

@@ -55,6 +55,7 @@ def login():
 
         except Exception as ex:
             flash(f"Error al intentar iniciar sesión: {ex}", "danger")
+            return redirect(url_for('errors.generic_error'))
         finally:
             if db.conn:
                 db.close_connection()
