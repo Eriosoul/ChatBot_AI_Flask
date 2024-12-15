@@ -47,17 +47,20 @@ class GetDataToProfile:
                 database.close_connection()
 
 
-class GetAllhotels:
+class HotelQueries:
     @staticmethod
-    def get_all_hotel():
+    def get_all_hotels():
         try:
             database = DataBaseConnection()
             if database.conn:
-                query = """SELECT * FROM propiedades"""
+                query = "SELECT nombre, descripcion, direccion, ciudad, pais, precio FROM propiedades"
                 with database.conn.cursor() as cursor:
                     cursor.execute(query)
-                    cursor.fetch()
-                print(query)
+                    return cursor.fetchall()
         except Exception as ex:
-            print(ex)
+            print(f"Error fetching hotels: {ex}")
+            return None
+        finally:
+            if database.conn:
+                database.close_connection()
 

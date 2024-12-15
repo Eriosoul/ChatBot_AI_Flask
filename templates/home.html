@@ -7,31 +7,29 @@
 {% block content %}
 <div class="home-container">
     <h1>Explora nuestras opciones</h1>
+    <div class="card">
+    <img src="/static/images/prueba_hotel.jpg" alt="Hotel Sol y Mar">
+    <div class="card-content">
+        <h2>Hotel Sol y Mar</h2>
+        <p>Hotel de lujo con vista al mar, cuenta con piscina y spa.</p>
+        <p>Calle del Sol, 123, Cancún, México</p>
+        <p>Precio: $250.00</p>
+        <button class="card-btn">Ver más</button>
+    </div>
+</div>
     <div class="card-grid">
+        {% for hotel in hotels %}
         <div class="card">
-            <img src="/static/images/prueba_hotel.jpg" alt="Card Image 1">
+            <img src="/static/images/prueba_hotel.jpg" alt="{{ hotel.name }}">
             <div class="card-content">
-                <h2>Título de la Card 1</h2>
-                <p>Descripción breve de la opción o servicio.</p>
+                <h2>{{ hotel.name }}</h2>
+                <p>{{ hotel.description }}</p>
+                <p>{{ hotel.address }}, {{ hotel.city }}, {{ hotel.country }}</p>
+                <p>Precio: ${{ hotel.price }}</p>
                 <button class="card-btn">Ver más</button>
             </div>
         </div>
-        <div class="card">
-            <img src="/static/images/prueba_hotel.jpg" alt="Card Image 2">
-            <div class="card-content">
-                <h2>Título de la Card 2</h2>
-                <p>Descripción breve de la opción o servicio.</p>
-                <button class="card-btn">Ver más</button>
-            </div>
-        </div>
-        <div class="card">
-            <img src="/static/images/prueba_hotel.jpg" alt="Card Image 3">
-            <div class="card-content">
-                <h2>Título de la Card 3</h2>
-                <p>Descripción breve de la opción o servicio.</p>
-                <button class="card-btn">Ver más</button>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
