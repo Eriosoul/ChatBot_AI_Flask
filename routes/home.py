@@ -14,11 +14,13 @@ def home():
             flash("No se encontró el ID del usuario en la sesión.", "danger")
             return redirect(url_for('login.login'))
 
+        # Obtener datos de los hoteles
+        hotels = HotelQueries.get_all_hotels()
+        print(hotels)  # Diagnóstico para verificar los datos
+
+        # Conectar a la base de datos para obtener información del usuario
         db = DataBaseConnection()
         if db.conn:
-            hotels = HotelQueries.get_all_hotels()
-            print(hotels)  # Diagnóstico: Ver los datos en consola
-
             with db.conn.cursor(dictionary=True) as cursor:
                 query = "SELECT name, mail FROM clientes WHERE id = %s"
                 cursor.execute(query, (user_id,))
@@ -35,4 +37,5 @@ def home():
         if db and db.conn:
             db.close_connection()
 
+    # Renderizar la plantilla con los datos del usuario y los hoteles
     return render_template('home.html', user=user_data, hotels=hotels)

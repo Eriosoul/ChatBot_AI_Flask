@@ -54,9 +54,9 @@ class HotelQueries:
             database = DataBaseConnection()
             if database.conn:
                 query = "SELECT nombre, descripcion, direccion, ciudad, pais, precio FROM propiedades"
-                with database.conn.cursor() as cursor:
+                with database.conn.cursor(dictionary=True) as cursor:  # Asegúrate de usar cursor(dictionary=True)
                     cursor.execute(query)
-                    return cursor.fetchall()
+                    return cursor.fetchall()  # Retorna una lista de diccionarios
         except Exception as ex:
             print(f"Error fetching hotels: {ex}")
             return None

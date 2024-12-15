@@ -7,29 +7,20 @@
 {% block content %}
 <div class="home-container">
     <h1>Explora nuestras opciones</h1>
+<div class="card-grid">
+{% for hotel in hotels %}
     <div class="card">
-    <img src="/static/images/prueba_hotel.jpg" alt="Hotel Sol y Mar">
-    <div class="card-content">
-        <h2>Hotel Sol y Mar</h2>
-        <p>Hotel de lujo con vista al mar, cuenta con piscina y spa.</p>
-        <p>Calle del Sol, 123, Cancún, México</p>
-        <p>Precio: $250.00</p>
-        <button class="card-btn">Ver más</button>
-    </div>
-</div>
-    <div class="card-grid">
-        {% for hotel in hotels %}
-        <div class="card">
-            <img src="/static/images/prueba_hotel.jpg" alt="{{ hotel.name }}">
-            <div class="card-content">
-                <h2>{{ hotel.name }}</h2>
-                <p>{{ hotel.description }}</p>
-                <p>{{ hotel.address }}, {{ hotel.city }}, {{ hotel.country }}</p>
-                <p>Precio: ${{ hotel.price }}</p>
-                <button class="card-btn">Ver más</button>
-            </div>
+        <img src="/static/images/prueba_hotel.jpg" alt="{{ hotel['nombre'] }}">
+        <div class="card-content">
+            <h2>{{ hotel['nombre'] }}</h2>
+            <p>{{ hotel['descripcion'] }}</p>
+            <p>{{ hotel['direccion'] }}, {{ hotel['ciudad'] }}, {{ hotel['pais'] }}</p>
+            <p>Precio: ${{ hotel['precio'] }}</p>
         </div>
-        {% endfor %}
     </div>
+{% else %}
+    <p>No hay hoteles disponibles.</p>
+{% endfor %}
+</div>
 </div>
 {% endblock %}
