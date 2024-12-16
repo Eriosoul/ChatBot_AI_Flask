@@ -43,7 +43,12 @@
         </ul>
         <div class="user-menu">
             <div class="user-avatar" id="user-avatar">
-                <img src="/static/images/phx.jpg" alt="Foto de perfil" onerror="this.src='/static/images/default.jpg';">
+                {% if user and user['image_url'] %}
+                    <img src="{{ url_for('static', filename=user['image_url']) }}" alt="Foto de perfil">
+                {% else %}
+                    <!-- Si no hay imagen, mostrar imagen predeterminada -->
+                    <img src="{{ url_for('static', filename='images/default.jpg') }}" alt="Foto de perfil">
+                {% endif %}
             </div>
             <div class="dropdown-menu" id="dropdown-menu">
                 {% if user %}

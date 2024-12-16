@@ -15,7 +15,6 @@ def login():
             db = DataBaseConnection()
             if db.conn:
                 with db.conn.cursor(dictionary=True) as cursor:
-                    # Consulta para verificar usuario y contraseña
                     query = "SELECT id, mail, password FROM clientes WHERE mail = %s"
                     cursor.execute(query, (email,))
                     user = cursor.fetchone()
@@ -32,6 +31,22 @@ def login():
                         expires_at = datetime.utcnow() + timedelta(hours=2)  # Expira en 2 horas
                         user_id = user['id']
 
+                        # Obtener los datos del usuario (incluida la imagen de perfil)
+                        with db.conn.cursor(dictionary=True) as cursor:
+                            query_user_info = """
+                                SELECT name, surnames, mail, phone,
+                                (SELECT image_url FROM cliente_imagenes 
+                                 WHERE cliente_id = %s 
+                                 ORDER BY uploaded_at DESC LIMIT 1) AS image_url
+                                FROM clientes
+                                WHERE id = %s
+                            """
+                            cursor.execute(query_user_info, (user_id, user_id))
+                            user_data = cursor.fetchone()
+
+                        # Guardar los datos del usuario en la sesión
+                        session['user'] = user_data
+
                         # Guardar token en la tabla de sesiones
                         with db.conn.cursor() as cursor:
                             insert_query = """
@@ -43,7 +58,6 @@ def login():
 
                         # Guardar token en la sesión de Flask
                         session['user_id'] = user_id
-                        print(f"Usuario con ID {session['user_id']} inició sesión")
                         session['token'] = token
 
                         flash("Login exitoso", "success")
@@ -61,3 +75,61 @@ def login():
                 db.close_connection()
 
     return render_template('login.html')
+
+
+#
+# @login_bp.route('/login', methods=['GET', 'POST'])
+# def login():
+#     if request.method == 'POST':
+#         email = request.form.get('email')
+#         password = request.form.get('password')
+#         try:
+#             db = DataBaseConnection()
+#             if db.conn:
+#                 with db.conn.cursor(dictionary=True) as cursor:
+#                     # Consulta para verificar usuario y contraseña
+#                     query = "SELECT id, mail, password FROM clientes WHERE mail = %s"
+#                     cursor.execute(query, (email,))
+#                     user = cursor.fetchone()
+#
+#                 if user:
+#                     stored_hashed_password = user['password']
+#                     metod_cript = hashlib.sha256()
+#                     metod_cript.update(password.encode())
+#                     hashed_input_password = metod_cript.hexdigest()
+#
+#                     if hashed_input_password == stored_hashed_password:
+#                         # Generar token y fecha de expiración
+#                         token = secrets.token_hex(32)  # Token único
+#                         expires_at = datetime.utcnow() + timedelta(hours=2)  # Expira en 2 horas
+#                         user_id = user['id']
+#
+#                         # Guardar token en la tabla de sesiones
+#                         with db.conn.cursor() as cursor:
+#                             insert_query = """
+#                                 INSERT INTO sessions (user_id, token, expires_at)
+#                                 VALUES (%s, %s, %s)
+#                             """
+#                             cursor.execute(insert_query, (user_id, token, expires_at))
+#                             db.conn.commit()
+#
+#                         # Guardar token en la sesión de Flask
+#                         session['user_id'] = user_id
+#                         print(f"Usuario con ID {session['user_id']} inició sesión")
+#                         session['token'] = token
+#
+#                         flash("Login exitoso", "success")
+#                         return redirect(url_for('home.home'))  # Endpoint correcto aquí
+#                     else:
+#                         flash("Contraseña incorrecta", "danger")
+#                 else:
+#                     flash("El usuario no existe", "danger")
+#
+#         except Exception as ex:
+#             flash(f"Error al intentar iniciar sesión: {ex}", "danger")
+#             return redirect(url_for('errors.generic_error'))
+#         finally:
+#             if db.conn:
+#                 db.close_connection()
+#
+#     return render_template('login.html')

@@ -11,13 +11,13 @@
         <div class="box-profile-head">
             <div class="info-profile">Información de Usuario</div>
             <div class="foto-profile">
-                <img src="/static/images/phx.jpg" alt="Foto de perfil">
+                <img src="{{ url_for('static', filename=user['image_url'] if user['image_url'] else 'images/phx.jpg') }}" alt="Foto de perfil">
                 <div class="hover-overlay">
                     <p>Editar</p>
                 </div>
             </div>
         </div>
-        <form method="POST" action="{{ url_for('profile.profile') }}">
+        <form method="POST" action="{{ url_for('profile.profile') }}" enctype="multipart/form-data">
             <!-- Nombre -->
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
@@ -66,27 +66,27 @@
                     required>
             </div>
 
-            <!-- Contraseña -->
-<!--            <div class="mb-3">-->
-<!--                <label for="password" class="form-label">Contraseña</label>-->
-<!--                <input-->
-<!--                    type="password"-->
-<!--                    class="form-control"-->
-<!--                    id="password"-->
-<!--                    name="password"-->
-<!--                    value="{{ user['password'] }}"-->
-<!--                    required>-->
-<!--            </div>-->
+            <!-- Subir Imagen de Perfil -->
+            <div class="mb-3">
+                <label for="profile_picture" class="form-label">Imagen de Perfil</label>
+                <input
+                    type="file"
+                    class="form-control"
+                    id="profile_picture"
+                    name="profile_picture"
+                    accept="image/*">
+            </div>
 
             <!-- Botón de Enviar -->
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                {% if message %}
                 <div class="alert alert-{{ category }}" role="alert">
                     {{ message }}
                 </div>
+                {% endif %}
             </div>
         </form>
     </article>
 </div>
-
 {% endblock %}

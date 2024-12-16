@@ -6,18 +6,28 @@
 
 {% block content %}
 <div class="home-container">
+    <div>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+    </div>
     <h1>Explora nuestras opciones</h1>
 <div class="card-grid">
 {% for hotel in hotels %}
     <div class="card">
+    <div class="card-image">
         <img src="/static/images/prueba_hotel.jpg" alt="{{ hotel['nombre'] }}">
-        <div class="card-content">
-            <h2>{{ hotel['nombre'] }}</h2>
-            <p>{{ hotel['descripcion'] }}</p>
-            <p>{{ hotel['direccion'] }}, {{ hotel['ciudad'] }}, {{ hotel['pais'] }}</p>
-            <p>Precio: ${{ hotel['precio'] }}</p>
-        </div>
     </div>
+    <div class="card-content">
+        <h2>{{ hotel['nombre'] }}</h2>
+        <p class="description">{{ hotel['descripcion'] }}</p>
+        <p class="address">{{ hotel['direccion'] }}, {{ hotel['ciudad'] }}, {{ hotel['pais'] }}</p>
+        <p class="price">Precio: €{{ hotel['precio'] }}</p>
+        <button class="card-btn">Ver más</button>
+    </div>
+</div>
 {% else %}
     <p>No hay hoteles disponibles.</p>
 {% endfor %}
