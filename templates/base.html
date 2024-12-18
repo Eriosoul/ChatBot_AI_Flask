@@ -1,12 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar Estilo Airbnb</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav_home.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/nav_home.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <script defer>
+      // Script para el menú desplegable (responsive)
+      document.addEventListener("DOMContentLoaded", () => {
+          const toggle = document.querySelector(".menu-toggle");
+          const navLinks = document.querySelector(".nav-links");
+          toggle.addEventListener("click", () => {
+              navLinks.classList.toggle("active");
+          });
+      });
+    </script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <!-- Logo -->
+            <a href="#" class="navbar-brand">
+                <img src="https://via.placeholder.com/40" alt="Logo" class="logo">
+                <span class="brand-name">Airbnb Clone</span>
+            </a>
+
+            <!-- Barra de búsqueda -->
+            <div class="search-bar">
+                <input type="text" placeholder="¿A dónde vas?" class="search-input">
+                <button class="search-button">
+                    <img src="https://via.placeholder.com/16" alt="Buscar">
+                </button>
+            </div>
+
+            <!-- Links del menú -->
+            <ul class="nav-links">
+                <li><a href="#">Alojamientos</a></li>
+                <li><a href="#">Experiencias</a></li>
+                <li><a href="#">Online</a></li>
+            </ul>
+
+            <!-- Menú de usuario -->
+            <div class="user-menu">
+                <button class="menu-toggle">
+                    <div class="hamburger"></div>
+                </button>
+                <div class="user-avatar">
+                    <img src="https://via.placeholder.com/40" alt="Avatar">
+                </div>
+                <div class="dropdown-menu">
+                    <div class="user-info">
+                        <p class="user-name">Juan Pérez</p>
+                        <p class="user-email">juanperez@mail.com</p>
+                    </div>
+                    <ul>
+                        <li><a href="#">Perfil</a></li>
+                        <li><a href="#">Reservas</a></li>
+                        <li><a href="#">Cerrar sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav_home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reservations.css') }}">
     <title>{% block title %} Tu hotel de confianza {% endblock %}</title>
     <style>
         :root[data-theme="light"] {
@@ -46,7 +120,7 @@
                 {% if user and user['image_url'] %}
                     <img src="{{ url_for('static', filename=user['image_url']) }}" alt="Foto de perfil">
                 {% else %}
-                    <!-- Si no hay imagen, mostrar imagen predeterminada -->
+                    Si no hay imagen, mostrar imagen predeterminada 
                     <img src="{{ url_for('static', filename='images/default.jpg') }}" alt="Foto de perfil">
                 {% endif %}
             </div>
@@ -63,10 +137,10 @@
                     </div>
                 {% endif %}
                 <ul>
-                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="{{ url_for('reservations.reservations')}}">Reservas</a></li>
                     <li><a href="{{ url_for('profile.profile') }}">Profile</a></li>
                     <li><a href="{{ url_for('auth.logout') }}">Sign out</a></li>
-<!--                    <li><a href="{{ url_for('login.login') }}">Sign out</a></li>-->
+                  <li><a href="{{ url_for('login.login') }}">Sign out</a></li>
                 </ul>
             </div>
         </div>
@@ -123,4 +197,4 @@
     <script src="{{ url_for('static', filename='js/open_close_menu.js') }}"></script>
     <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 </body>
-</html>
+</html> -->

@@ -1,6 +1,7 @@
-{%extends "base.html" %}
+<!--{%extends "base.html" %}
 
 {% block head_includes %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 {% endblock %}
 
@@ -33,4 +34,54 @@
 {% endfor %}
 </div>
 </div>
-{% endblock %}
+{% endblock %}-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cards Estilo Airbnb</title>
+    <link rel="stylesheet" href="static/home.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Explora alojamientos</h1>
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://via.placeholder.com/400x250" alt="Alojamiento 1">
+                </div>
+                <div class="card-content">
+                    <h2>Apartamento céntrico</h2>
+                    <p class="location">Madrid, España</p>
+                    <p class="rating">⭐⭐⭐⭐⭐ 4.8 (120)</p>
+                    <p class="price"><strong>120€</strong> por noche</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://via.placeholder.com/400x250" alt="Alojamiento 2">
+                </div>
+                <div class="card-content">
+                    <h2>Casa de playa</h2>
+                    <p class="location">Valencia, España</p>
+                    <p class="rating">⭐⭐⭐⭐ 4.5 (90)</p>
+                    <p class="price"><strong>150€</strong> por noche</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://via.placeholder.com/400x250" alt="Alojamiento 3">
+                </div>
+                <div class="card-content">
+                    <h2>Chalet en montaña</h2>
+                    <p class="location">Granada, España</p>
+                    <p class="rating">⭐⭐⭐⭐⭐ 4.9 (75)</p>
+                    <p class="price"><strong>200€</strong> por noche</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

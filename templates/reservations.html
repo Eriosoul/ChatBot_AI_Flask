@@ -1,0 +1,23 @@
+{% extends "home.html" %}
+
+{% block head_includes %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/reservations.css') }}">
+{% endblock %}
+
+{% block title %}Reservas{% endblock %}
+
+{% block content %}
+<section class="container_reservations">
+    <div>Nombre del hotel
+        <div>Contenido dentro del primer div</div>
+        <div>Contenido dentro del primer div</div>
+        <div>Contenido dentro del primer div</div>
+    </div>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+    <div>6</div>
+</section>
+{% endblock %}
