@@ -29,4 +29,3 @@ def home():
 
     # Renderizar la plantilla con los datos del usuario y los hoteles
     return render_template('home.html', user=user_data, hotels=hotels)
-

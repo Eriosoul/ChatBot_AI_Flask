@@ -2,6 +2,9 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Para asegurarse de que el contenido ocupe toda la altura disponible */
 }
 
 .navbar {
@@ -113,10 +116,14 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 180px;
   z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease; /* Transición suave */
 }
 
-.user-menu:hover .dropdown-menu {
+/* Mostrar el menú cuando se aplica la clase "active" */
+.dropdown-menu.active {
   display: block;
+  opacity: 1;
 }
 
 .user-info {
@@ -138,8 +145,108 @@ body {
   transition: background-color 0.3s;
 }
 
+/* Cambiar color de fondo al pasar el ratón sobre los enlaces */
 .dropdown-menu li a:hover {
-  background-color: #f7f7f7;
+  background-color: #f0f0f0;
+}
+
+/* Content Area */
+.main-content {
+  flex: 1; /* Esto hace que el contenido ocupe el espacio restante */
+  padding: 20px;
+  overflow-y: auto; /* Para permitir que el contenido se desplace si es largo */
+}
+
+/* Footer Styles */
+footer {
+  background-color: #f8f8f8;
+  padding: 20px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid #ddd;
+  position: fixed; /* Fija el footer al fondo */
+  bottom: 0; /* Asegura que esté en la parte inferior */
+  width: 100%; /* Asegura que ocupe todo el ancho */
+  z-index: 10; /* Asegura que el footer esté encima de otros elementos */
+}
+
+/* Chatbox Styling (footer content) */
+.chatbox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatbox__button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.chatbox__support {
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chatbox__header {
+  display: flex;
+  align-items: center;
+}
+
+.chatbox__image--header img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.chatbox__content--header {
+  display: flex;
+  flex-direction: column;
+}
+
+.chatbox__heading--header {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.chatbox__description--header {
+  font-size: 14px;
+  color: gray;
+}
+
+.chatbox__messages {
+  margin-top: 15px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.chatbox__footer {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.chatbox__footer input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.chatbox__footer .send__button {
+  margin-left: 10px;
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chatbox__footer .send__button:hover {
+  background-color: #0056b3;
 }
 
 /* Responsive */
@@ -196,216 +303,3 @@ body {
       display: flex;
   }
 }
-
-
-/* General Styles
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-
-.navbar {
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.container {
-  display: flex;
-  justify-content: space-between; 
-  align-items: center;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto; 
-}
-
-.navbar-brand {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-.logo {
-  height: 40px;
-  margin-right: 10px;
-}
-
-.brand-name {
-  font-size: 20px;
-  font-weight: bold;
-  color: #333;
-}
-
-.nav-links {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-links li {
-  margin: 0 10px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: #333;
-  padding: 8px 16px;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  background-color: #007bff;
-  color: #fff;
-}
-
-.user-menu {
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin-left: auto; 
-}
-
-.user-avatar img {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 50px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  width: 200px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.dropdown-menu.show {
-  display: block;
-}
-
-.user-menu:hover .dropdown-menu {
-  display: block;
-}
-
-.user-info {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.user-info .user-name {
-  font-weight: bold;
-  color: #333;
-}
-
-.user-info .user-email {
-  font-size: 14px;
-  color: #777;
-}
-
-.dropdown-menu ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.dropdown-menu li {
-  border-bottom: 1px solid #ddd;
-}
-
-.dropdown-menu li:last-child {
-  border-bottom: none;
-}
-
-.dropdown-menu a {
-  display: block;
-  text-decoration: none;
-  color: #333;
-  padding: 10px;
-  transition: background-color 0.3s;
-}
-
-.dropdown-menu a:hover {
-  background-color: #f7f7f7;
-}
-
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.hamburger {
-  width: 24px;
-  height: 2px;
-  background-color: #333;
-  display: block;
-  position: relative;
-}
-
-.hamburger::before,
-.hamburger::after {
-  content: '';
-  width: 24px;
-  height: 2px;
-  background-color: #333;
-  position: absolute;
-  left: 0;
-}
-
-.hamburger::before {
-  top: -8px;
-}
-
-.hamburger::after {
-  top: 8px;
-}
-
- Responsive 
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    background-color: #fff;
-    width: 100%;
-    border-top: 1px solid #ddd;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
-  .menu-toggle.active + .nav-links {
-    display: flex;
-  }
-}
-
-
-.container-profile {
-    margin: 15%;
-    display: flex;
-    justify-content: center;
-    align-items: auto;
-    height: 100vh;
-    background-color: #ffffff;
-    font-family: Arial, sans-serif;
-}
-
-.container-profile h1 {
-    color: #333;
-    font-size: 2rem;
-} */
-

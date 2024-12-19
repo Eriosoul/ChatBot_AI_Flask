@@ -1,5 +1,8 @@
-from .connection_db import DataBaseConnection
-from flask import session
+from flask import request, redirect, url_for, session, flash
+import os
+from werkzeug.utils import secure_filename
+from datetime import datetime
+from db.connection_db import DataBaseConnection
 
 class QuitSessionWhenLogOut:
     @staticmethod
@@ -64,3 +67,80 @@ class HotelQueries:
             if database.conn:
                 database.close_connection()
 
+
+class HotelReservationQueries:
+    @staticmethod
+    def get_all_reservations_hotels():
+        user_id = session.get('user_id')  # Obtener el ID del usuario desde la sesión
+        try:
+            database = DataBaseConnection()
+            if database.conn:
+                # Consulta para combinar reservas con propiedades
+                query = """
+                    SELECT r.fecha_inicio, r.fecha_fin, r.total, r.estado, r.created_at,
+                           p.nombre AS hotel_nombre, p.descripcion AS hotel_descripcion,
+                           p.direccion AS hotel_direccion, p.ciudad AS hotel_ciudad, 
+                           p.pais AS hotel_pais, p.precio AS hotel_precio
+                    FROM reservas r
+                    JOIN propiedades p ON r.propiedad_id = p.id
+                    WHERE r.cliente_id = %s
+                """
+                with database.conn.cursor(dictionary=True) as cursor:
+                    cursor.execute(query, (user_id,))
+                    return cursor.fetchall()  # Devuelve todas las reservas con información del hotel
+        except Exception as ex:
+            print(f"Error fetching reservation hotels: {ex}")
+            return None
+        finally:
+            if database.conn:
+                database.close_connection()
+
+
+
+# Define la carpeta de uploads
+UPLOAD_FOLDER = 'static/uploads/'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+
+# Función para verificar la extensión permitida
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+class ProfilePhoto:
+    @staticmethod
+    def upload_photo():
+        if 'profile_photo' not in request.files:
+            flash('No se ha seleccionado ningún archivo', 'danger')
+            return redirect(request.url)
+
+        file = request.files['profile_photo']
+
+        # Verifica si el archivo tiene una extensión válida
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file_path = os.path.join(UPLOAD_FOLDER, filename)
+
+            # Guarda el archivo en la carpeta 'uploads'
+            file.save(file_path)
+
+            # Obtén el ID de usuario de la sesión
+            user_id = session.get('user_id')
+            if user_id:
+                # Guarda la URL de la imagen en la base de datos
+                db = DataBaseConnection()
+                try:
+                    with db.conn.cursor() as cursor:
+                        # Inserta la imagen en la base de datos
+                        query = "INSERT INTO cliente_imagenes (cliente_id, image_url, uploaded_at) VALUES (%s, %s, %s)"
+                        cursor.execute(query, (user_id, f"uploads/{filename}", datetime.utcnow()))
+                        db.conn.commit()
+                        flash('Imagen subida correctamente', 'success')
+                except Exception as ex:
+                    flash(f'Error al guardar la imagen: {ex}', 'danger')
+                finally:
+                    if db.conn:
+                        db.close_connection()
+
+            return redirect(
+                url_for('profile.profile_page'))  # Redirige a la página de perfil (ajusta el nombre de la ruta)

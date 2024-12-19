@@ -1,0 +1,172 @@
+""" contenido del home """
+<!--
+{% block head_includes %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <div>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+    </div>
+    <h1>Explora nuestras opciones</h1>
+<div class="card-grid">
+{% for hotel in hotels %}
+    <div class="card">
+    <div class="card-image">
+        <img src="/static/images/prueba_hotel.jpg" alt="{{ hotel['nombre'] }}">
+    </div>
+    <div class="card-content">
+        <h2>{{ hotel['nombre'] }}</h2>
+        <p class="description">{{ hotel['descripcion'] }}</p>
+        <p class="address">{{ hotel['direccion'] }}, {{ hotel['ciudad'] }}, {{ hotel['pais'] }}</p>
+        <p class="price">Precio: €{{ hotel['precio'] }}</p>
+        <button class="card-btn">Ver más</button>
+    </div>
+</div>
+{% else %}
+    <p>No hay hoteles disponibles.</p>
+{% endfor %}
+</div>
+</div>
+{% endblock %}
+-->
+
+""" contendio del base """
+<!--
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav_home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reservations.css') }}">
+    <title>{% block title %} Tu hotel de confianza {% endblock %}</title>
+    <style>
+        :root[data-theme="light"] {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+        }
+
+        :root[data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="navbar-brand">
+                <img src="static/images/phx.jpg" alt="Logo" class="logo">
+                <span class="brand-name">Tu Hotel Favorito</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('home.home') }}">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Contact</a></li>
+
+            </ul>
+            <div class="user-menu">
+                <div class="user-avatar" id="user-avatar">
+                    {% if user and user['image_url'] %}
+                    <img src="{{ url_for('static', filename=user['image_url']) }}" alt="Foto de perfil">
+                    {% else %}
+                    Si no hay imagen, mostrar imagen predeterminada
+                    <img src="{{ url_for('static', filename='images/default.jpg') }}" alt="Foto de perfil">
+                    {% endif %}
+                </div>
+                <div class="dropdown-menu" id="dropdown-menu">
+                    {% if user %}
+                    <div class="user-info">
+                        <span class="user-name">{{ user['name'] }}</span>
+                        <span class="user-email">{{ user['mail'] }}</span>
+                    </div>
+                    {% else %}
+                    <div class="user-info">
+                        <span class="user-name">Usuario no identificado</span>
+                        <span class="user-email">Correo no disponible</span>
+                    </div>
+                    {% endif %}
+                    <ul>
+                        <li><a href="{{ url_for('reservations.reservations')}}">Reservas</a></li>
+                        <li><a href="{{ url_for('profile.profile') }}">Profile</a></li>
+                        <li><a href="{{ url_for('auth.logout') }}">Sign out</a></li>
+                        <li><a href="{{ url_for('login.login') }}">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <div class="chatbox">
+        <div class="chatbox__support">
+            <div class="chatbox__header">
+                <div class="chatbox__image--header">
+                    <img src="/static/images/teleoperador.png" alt="image">
+                </div>
+                <div class="chatbox__content--header">
+                    <h4 class="chatbox__heading--header">Your support hotel</h4>
+                    <p class="chatbox__description--header">Hi. My name is Andrei. How can I help you?</p>
+                </div>
+            </div>
+            <div class="chatbox__messages">
+                <div></div>
+            </div>
+            <div class="chatbox__footer">
+                <input type="text" placeholder="Write a message...">
+                <button class="chatbox__send--footer send__button">Send</button>
+            </div>
+        </div>
+        <div class="chatbox__button">
+            <button><img src="{{ url_for('static', filename='') }}" /></button>
+        </div>
+    </div>
+    <script>
+        const userPrefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+        function setTheme(theme) {
+            if (theme === "dark") {
+                document.documentElement.setAttribute("data-theme", "dark");
+            } else {
+                document.documentElement.setAttribute("data-theme", "light");
+            }
+        }
+
+        // Establecer el tema inicial según la preferencia del navegador
+        setTheme(userPrefersDark.matches ? "dark" : "light");
+
+        // Escuchar cambios en la preferencia del sistema
+        userPrefersDark.addEventListener("change", (e) => {
+            setTheme(e.matches ? "dark" : "light");
+        });
+    </script>
+    <script src="{{ url_for('static', filename='js/change_theme.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/open_close_menu.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body>
+
+</html>-->

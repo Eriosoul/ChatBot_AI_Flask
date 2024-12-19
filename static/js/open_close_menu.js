@@ -1,17 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const userAvatar = document.getElementById("user-avatar");
-    const dropdownMenu = document.getElementById("dropdown-menu");
-    const toggleTheme = document.getElementById("toggle-theme");
+    const menuToggle = document.querySelector(".menu-toggle");
+    const dropdownMenu = document.querySelector(".dropdown-menu");
 
-    // abrir y cerrar el menu con el evento del clic
-    userAvatar.addEventListener("click", function (e) {
-        e.stopPropagation(); // Evita que el evento se propague al documento
-        dropdownMenu.classList.toggle("show");
-    });
-    // cerrar el menu si haces clic fuera de el
-    document.addEventListener("click", function () {
-        dropdownMenu.classList.remove("show");
-    });
+    if (menuToggle && dropdownMenu) {
+        menuToggle.addEventListener("click", function () {
+            dropdownMenu.classList.toggle("active");
+        });
+    }
+});
+
 
 //    // Cambia entre modo claro y oscuro
 //    toggleTheme.addEventListener("click", function () {
@@ -35,4 +32,3 @@ document.addEventListener("DOMContentLoaded", function () {
 //
 //    // Llama a la función para aplicar el tema al cargar la página
 //    updateTheme();
-});

@@ -1,6 +1,7 @@
 """ CODIGO VIEJO DEL PROFILE """
 from flask import Blueprint, render_template, session, flash, redirect, url_for, request
 from db.connection_db import DataBaseConnection
+from db.queries import HotelReservationQueries
 
 reservations_bp = Blueprint('reservations', __name__)
 #
@@ -9,12 +10,31 @@ reservations_bp = Blueprint('reservations', __name__)
 #
 @reservations_bp.route('/reservations', methods=['GET', 'POST'], endpoint='reservations')
 def profile():
-    user_data = None  # Datos inicializados como None
-    user_id = session.get('user_id')
-    if not user_id:
-        flash("No estás autenticado. Por favor, inicia sesión.", "danger")
+    try:
+        user_id = session.get('user_id')
+        if not user_id:
+            flash("No se encontró el ID del usuario en la sesión.", "danger")
+            return redirect(url_for('login.login'))
+
+        # Obtener los datos del usuario desde la sesión
+        user_data = session.get('user')
+        if not user_data:
+            flash("No se encontró información del usuario en la sesión.", "danger")
+            return redirect(url_for('login.login'))
+
+        # Obtener las reservas con información de hoteles
+        hotel_reservation = HotelReservationQueries.get_all_reservations_hotels()
+
+        if not hotel_reservation:
+            flash("No se encontraron reservas para este usuario.", "info")
+
+        print(hotel_reservation)  # Depuración
+    except Exception as ex:
+        flash(f"Error al cargar los datos del usuario: {ex}", "danger")
         return redirect(url_for('login.login'))
-    return render_template('reservations.html', user=user_data)
+
+    # Renderiza la plantilla con los datos de las reservas
+    return render_template('reservations.html', user=user_data, reservas=hotel_reservation)
 #
 #     try:
 #         db = DataBaseConnection()
